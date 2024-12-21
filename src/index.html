@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Data UI</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body class="bg-light">
+    <canvas class="webgl"></canvas>
+
+    <div class="loading-bar"></div>
+
+    <div class="container">
+      <div class="menu">
+        <h1>Health and Lifestyle Assessment</h1>
+
+        <!-- HighBP (High Blood Pressure): -->
+        <div class="high-bp">
+          <label for="high-bp-select">Do you have high blood pressure..?</label>
+          <div class="dropdown-container">
+            <select id="high-bp-select" name="high-bp">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+        </div>
+
+        <!-- HighCholesterol: -->
+        <div class="high-bp">
+          <label for="high-cholesterol-select"
+            >Do you have high cholesterol:</label
+          >
+          <div class="dropdown-container">
+            <select id="high-cholesterol-select" name="high-cholesterol">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+        </div>
+
+        <!-- CHD or Myocardial Infarction -->
+        <div class="high-bp">
+          <label for="chd-select"
+            >Do you have coronary heart disease (CHD) or myocardial
+            infarction:</label
+          >
+          <div class="dropdown-container">
+            <select id="chd-select" name="chd">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+        </div>
+
+        <!-- Smoking -->
+        <div class="high-bp">
+          <label for="smoking-select">Do you smoke?</label>
+          <div class="dropdown-container">
+            <select id="smoking-select" name="smoking">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+        </div>
+
+        <!-- Difficulty Walking -->
+        <div class="high-bp">
+          <label for="difficulty-walking-select"
+            >Have difficulty walking or climbing stairs:</label
+          >
+          <div class="dropdown-container">
+            <select id="difficulty-walking-select" name="difficulty-walking">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+        </div>
+
+        <!-- Additional Questions -->
+
+        <!-- Consume Fruit -->
+        <div class="high-bp">
+          <label for="fruit-consume-select"
+            >Consume fruit 1 or more times per day:</label
+          >
+          <div class="dropdown-container">
+            <select id="fruit-consume-select" name="fruit-consume">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+        </div>
+
+        <!-- Consume Vegetables -->
+        <div class="high-bp">
+          <label for="vegetables-consume-select"
+            >Consume vegetables 1 or more times per day:</label
+          >
+          <div class="dropdown-container">
+            <select id="vegetables-consume-select" name="vegetables-consume">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+        </div>
+
+        <!-- Heavy Drinker -->
+        <div class="high-bp">
+          <label for="heavy-drinker-select">Are you a heavy drinker?</label>
+          <div class="dropdown-container">
+            <select id="heavy-drinker-select" name="heavy-drinker">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+        </div>
+
+        <!-- Cholesterol Test -->
+        <div class="high-bp">
+          <label for="cholesterol-test-select"
+            >Have you done any cholesterol test in the last 5 years?</label
+          >
+          <div class="dropdown-container">
+            <select id="cholesterol-test-select" name="cholesterol-test">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+        </div>
+
+        <!-- Stroke -->
+        <div class="high-bp">
+          <label for="stroke-select">Have you ever had a stroke before?</label>
+          <div class="dropdown-container">
+            <select id="stroke-select" name="stroke">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+        </div>
+
+        <!-- Body Mass Index -->
+        <div class="high-bp">
+          <label for="bmi-input">What's your Body Mass Index (BMI)?</label>
+          <input type="number" id="bmi-input" name="bmi" step="0.1" />
+        </div>
+
+        <!-- Age -->
+        <div class="high-bp">
+          <label for="age-input">What's your age?</label>
+          <input type="number" id="age-input" name="age" />
+        </div>
+
+        <!-- Education Level -->
+        <div class="high-bp">
+          <label for="education-level-select"
+            >What's your education level?</label
+          >
+          <div class="dropdown-container">
+            <select id="education-level-select" name="education-level">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+        </div>
+
+        <!-- Income Level -->
+        <div class="high-bp">
+          <label for="income-level-select">What's your income level?</label>
+          <div class="dropdown-container">
+            <select id="income-level-select" name="income-level">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+            </select>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+        </div>
+
+        <!-- General Health Rating -->
+        <div class="high-bp">
+          <label for="general-health-select"
+            >From a scale of 1 to 5, how would you rate your general
+            health?</label
+          >
+          <div class="dropdown-container">
+            <select id="general-health-select" name="general-health">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+        </div>
+        <!-- Physical Activities -->
+        <div class="containDivs">
+          <h4>
+            now thinking about the past 30 days, lets answer some questions...
+          </h4>
+          <div class="high-bp">
+            <label for="physical-activities-range"
+              >How many days have you done any physical activities in the past
+              30 days?</label
+            >
+            <input
+              type="range"
+              id="physical-activities-range"
+              name="physical-activities"
+              min="0"
+              max="30"
+              step="1"
+              value="0"
+              class="rangeStyle"
+            />
+            <span id="physical-activities-value">0</span> days
+          </div>
+
+          <!-- Mental Health Issues -->
+          <div class="high-bp">
+            <label for="mental-health-issues-range"
+              >How many days have you had any mental health issues in the past
+              30 days?</label
+            >
+            <input
+              type="range"
+              id="mental-health-issues-range"
+              name="mental-health-issues"
+              min="0"
+              max="30"
+              step="1"
+              value="0"
+            />
+            <span id="mental-health-issues-value">0</span> days
+          </div>
+
+          <!-- Physical Health Illness/Injuries -->
+          <div class="high-bp">
+            <label for="physical-health-illness-range"
+              >How many days have you had any physical health illness or
+              injuries in the past 30 days?</label
+            >
+            <input
+              type="range"
+              id="physical-health-illness-range"
+              name="physical-health-illness"
+              min="0"
+              max="30"
+              step="1"
+              value="0"
+            />
+            <span id="physical-health-illness-value">0</span> days
+          </div>
+        </div>
+
+        <div class="submit-button">
+          <button id="submit-btn" class="btn btn-primary">Submit Data</button>
+        </div>
+      </div>
+    </div>
+    <script type="module">
+      // Function to gather form data into an object
+      function collectFormData() {
+        const formDataArray = [
+          ["HighBP", document.getElementById("high-bp-select").value],
+          [
+            "HighChol",
+            document.getElementById("high-cholesterol-select").value,
+          ],
+          ["HeartDiseaseorAttack", document.getElementById("chd-select").value],
+          ["Smoker", document.getElementById("smoking-select").value],
+          [
+            "DiffWalk",
+            document.getElementById("difficulty-walking-select").value,
+          ],
+          ["Fruits", document.getElementById("fruit-consume-select").value],
+          [
+            "Veggies",
+            document.getElementById("vegetables-consume-select").value,
+          ],
+          [
+            "HvyAlcoholConsump",
+            document.getElementById("heavy-drinker-select").value,
+          ],
+          [
+            "CholCheck",
+            document.getElementById("cholesterol-test-select").value,
+          ],
+          ["Stroke", document.getElementById("stroke-select").value],
+          ["BMI", document.getElementById("bmi-input").value],
+          ["Age", document.getElementById("age-input").value],
+          [
+            "Education",
+            document.getElementById("education-level-select").value,
+          ],
+          ["Income", document.getElementById("income-level-select").value],
+          ["GenHlth", document.getElementById("general-health-select").value],
+          [
+            "PhysActivity",
+            document.getElementById("physical-activities-range").value,
+          ],
+          [
+            "MentHlth",
+            document.getElementById("mental-health-issues-range").value,
+          ],
+          [
+            "PhysHlth",
+            document.getElementById("physical-health-illness-range").value,
+          ],
+        ];
+
+        return Object.fromEntries(formDataArray);
+      }
+
+      // Event listener for Submit button click
+      document.getElementById("submit-btn").addEventListener("click", () => {
+        const formData = collectFormData();
+        console.log(formData); // Log the collected data to the console
+      });
+
+      // Script to update range value text
+      document
+        .getElementById("physical-activities-range")
+        .addEventListener("input", function () {
+          document.getElementById("physical-activities-value").textContent =
+            this.value;
+        });
+
+      document
+        .getElementById("mental-health-issues-range")
+        .addEventListener("input", function () {
+          document.getElementById("mental-health-issues-value").textContent =
+            this.value;
+        });
+
+      document
+        .getElementById("physical-health-illness-range")
+        .addEventListener("input", function () {
+          document.getElementById("physical-health-illness-value").textContent =
+            this.value;
+        });
+    </script>
+    <script type="module" src="./script.js"></script>
+  </body>
+</html>
