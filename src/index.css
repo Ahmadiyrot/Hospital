@@ -60,6 +60,9 @@ body {
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
+.menu div {
+  opacity: 1;
+}
 
 .menu h1 {
   grid-column: span 2;

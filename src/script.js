@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import GUI from "lil-gui";
+// import GUI from "lil-gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { Sky } from "three/addons/objects/Sky.js";
@@ -9,6 +9,7 @@ import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPa
 import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader.js";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import gsap from "gsap";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 // Loading Manager and Loading Bar Element
 const loadingBarElement = document.querySelector(".loading-bar");
@@ -39,7 +40,7 @@ const loadingManager = new THREE.LoadingManager(
  * Base Setup
  */
 // Debug GUI
-const gui = new GUI();
+// const gui = new GUI();
 const textureLoader = new THREE.TextureLoader(loadingManager);
 
 // Textures
@@ -119,25 +120,6 @@ scene.environmentIntensity = 0.25;
 scene.backgroundBlurriness = 1;
 scene.backgroundIntensity = 1;
 
-gui
-  .add(scene, "environmentIntensity")
-  .min(0)
-  .max(1)
-  .step(0.01)
-  .name("Env Intensity");
-gui
-  .add(scene, "backgroundBlurriness")
-  .min(0)
-  .max(1)
-  .step(0.01)
-  .name("Bg Blurriness");
-gui
-  .add(scene, "backgroundIntensity")
-  .min(0)
-  .max(1)
-  .step(0.01)
-  .name("Bg Intensity");
-
 // Sky and Fog
 const sky = new Sky();
 sky.scale.set(100, 100, 100);
@@ -146,34 +128,8 @@ scene.fog = new THREE.FogExp2("#04343f", 0.27);
 sky.material.uniforms["turbidity"].value = 0;
 sky.material.uniforms["rayleigh"].value = 0.41;
 sky.material.uniforms["mieCoefficient"].value = 0;
-sky.material.uniforms["mieDirectionalG"].value = 1;
+sky.material.uniforms["mieDirectionalG"].value = 0;
 sky.material.uniforms["sunPosition"].value.set(0.3, -0.038, -0.95);
-
-gui.add(scene.fog, "density").min(0).max(1).step(0.01).name("Fog Density");
-gui
-  .add(sky.material.uniforms["turbidity"], "value")
-  .min(0)
-  .max(20)
-  .step(0.1)
-  .name("Turbidity");
-gui
-  .add(sky.material.uniforms["rayleigh"], "value")
-  .min(0)
-  .max(4)
-  .step(0.01)
-  .name("Rayleigh");
-gui
-  .add(sky.material.uniforms["mieCoefficient"], "value")
-  .min(0)
-  .max(0.1)
-  .step(0.001)
-  .name("Mie Coefficient");
-gui
-  .add(sky.material.uniforms["mieDirectionalG"], "value")
-  .min(0)
-  .max(1)
-  .step(0.01)
-  .name("Mie Directional G");
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({
@@ -194,16 +150,6 @@ const bloomPass = new UnrealBloomPass();
 bloomPass.strength = 0.35;
 bloomPass.radius = 0;
 bloomPass.threshold = 0;
-
-gui.add(bloomPass, "strength").min(0).max(3).step(0.01).name("Bloom Strength");
-gui.add(bloomPass, "radius").min(0).max(1).step(0.01).name("Bloom Radius");
-gui
-  .add(bloomPass, "threshold")
-  .min(0)
-  .max(1)
-  .step(0.01)
-  .name("Bloom Threshold");
-
 composer.addPass(bloomPass);
 
 const fxaaPass = new ShaderPass(FXAAShader);
@@ -231,7 +177,7 @@ window.addEventListener(
       const intersects = raycaster.intersectObject(model, true);
       if (intersects.length > 0) {
         animateCameraToModel(intersects[0].point);
-        console.log(intersects[0].point, intersects[0]);
+        console.log("Clicked on model");
       }
     }
   },
@@ -279,7 +225,37 @@ overlay.renderOrder = 999;
 scene.add(overlay);
 
 const resetOverlay = () => {
-  overlayMaterial.uniforms.uAlpha.value = 1;
+  gltfLoader.load("/models/reception.glb", (gltf) => {
+    scene.add(gltf.scene);
+    gltf.scene.traverse((child) => {
+      if (child.isMesh) {
+        child.material.side = THREE.DoubleSide;
+      }
+    });
+
+    gltf.scene.position.set(20, -0.4, 10);
+    gltf.scene.scale.set(0.1, 0.1, 0.1);
+    camera.position.set(20.67, 0.25, 9.98);
+    camera.lookAt(19, 0.25, 9);
+    scene.backgroundBlurriness = 0;
+    scene.backgroundIntensity = 0;
+    scene.fog = new THREE.FogExp2("#04343f", 0.14);
+    sky.material.uniforms["turbidity"].value = 0;
+    sky.material.uniforms["rayleigh"].value = 4;
+    sky.material.uniforms["mieCoefficient"].value = 0;
+    sky.material.uniforms["mieDirectionalG"].value = 0;
+
+    bloomPass.strength = 0.35;
+    bloomPass.radius = 0;
+    bloomPass.threshold = 1;
+  });
+
+  gsap.to(overlayMaterial.uniforms.uAlpha, {
+    duration: 1,
+    value: 0,
+    delay: 0,
+    ease: "power4.in",
+  });
 };
 
 const animateCameraToModel = (targetPosition) => {
@@ -305,10 +281,11 @@ const animateCameraToModel = (targetPosition) => {
         onComplete: () => {
           gsap.to(menuElement, {
             duration: 1.5,
-            opacity: 1,
+            opacity: 0.5, // chnage this to 1
             delay: 1,
             ease: "power2.inOut",
           });
+          resetOverlay();
         },
       });
     },
@@ -356,6 +333,8 @@ particles.position.x = 2;
 particles.position.z = -1;
 
 scene.add(particles);
+//const controls = new OrbitControls(camera, renderer.domElement);
+//controls.update();
 
 /**
  * Animation Loop
@@ -364,6 +343,7 @@ const clock = new THREE.Clock();
 let previousTime = 0;
 
 const tick = () => {
+  //controls.update();
   const elapsedTime = clock.getElapsedTime();
   const deltaTime = elapsedTime - previousTime;
   previousTime = elapsedTime;
@@ -373,7 +353,7 @@ const tick = () => {
   overlay.rotation.copy(camera.rotation);
   overlay.translateZ(-0.1);
 
-  camera.position.y = -0.229 + Math.sin(elapsedTime / 1.5) * 0.05;
+  camera.position.y = -0.129 + Math.sin(elapsedTime / 1.5) * 0.05;
   camera.rotation.x += Math.sin(elapsedTime / 0.1) * 0.00005;
   camera.rotation.y += Math.sin(elapsedTime / 0.5) * 0.00005;
 

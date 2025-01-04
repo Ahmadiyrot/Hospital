@@ -10,6 +10,7 @@
     />
     <link rel="stylesheet" href="./index.css" />
   </head>
+
   <body class="bg-light">
     <canvas class="webgl"></canvas>
 
@@ -24,8 +25,8 @@
           <label for="high-bp-select">Do you have high blood pressure..?</label>
           <div class="dropdown-container">
             <select id="high-bp-select" name="high-bp">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
             </select>
             <span class="dropdown-arrow">▼</span>
           </div>
@@ -38,8 +39,8 @@
           >
           <div class="dropdown-container">
             <select id="high-cholesterol-select" name="high-cholesterol">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
             </select>
             <span class="dropdown-arrow">▼</span>
           </div>
@@ -53,8 +54,8 @@
           >
           <div class="dropdown-container">
             <select id="chd-select" name="chd">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
             </select>
             <span class="dropdown-arrow">▼</span>
           </div>
@@ -65,8 +66,8 @@
           <label for="smoking-select">Do you smoke?</label>
           <div class="dropdown-container">
             <select id="smoking-select" name="smoking">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
             </select>
             <span class="dropdown-arrow">▼</span>
           </div>
@@ -79,8 +80,8 @@
           >
           <div class="dropdown-container">
             <select id="difficulty-walking-select" name="difficulty-walking">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
             </select>
             <span class="dropdown-arrow">▼</span>
           </div>
@@ -95,8 +96,8 @@
           >
           <div class="dropdown-container">
             <select id="fruit-consume-select" name="fruit-consume">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
             </select>
             <span class="dropdown-arrow">▼</span>
           </div>
@@ -109,8 +110,8 @@
           >
           <div class="dropdown-container">
             <select id="vegetables-consume-select" name="vegetables-consume">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
             </select>
             <span class="dropdown-arrow">▼</span>
           </div>
@@ -121,8 +122,8 @@
           <label for="heavy-drinker-select">Are you a heavy drinker?</label>
           <div class="dropdown-container">
             <select id="heavy-drinker-select" name="heavy-drinker">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
             </select>
             <span class="dropdown-arrow">▼</span>
           </div>
@@ -135,8 +136,8 @@
           >
           <div class="dropdown-container">
             <select id="cholesterol-test-select" name="cholesterol-test">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
             </select>
             <span class="dropdown-arrow">▼</span>
           </div>
@@ -147,8 +148,8 @@
           <label for="stroke-select">Have you ever had a stroke before?</label>
           <div class="dropdown-container">
             <select id="stroke-select" name="stroke">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
             </select>
             <span class="dropdown-arrow">▼</span>
           </div>
@@ -163,7 +164,24 @@
         <!-- Age -->
         <div class="high-bp">
           <label for="age-input">What's your age?</label>
-          <input type="number" id="age-input" name="age" />
+          <div class="dropdown-container">
+            <select id="age-select" name="age">
+              <option value="1">18-24</option>
+              <option value="2">25-29</option>
+              <option value="3">30-34</option>
+              <option value="4">35-39</option>
+              <option value="5">40-44</option>
+              <option value="6">45-49</option>
+              <option value="7">50-54</option>
+              <option value="8">55-59</option>
+              <option value="9">60-64</option>
+              <option value="10">65-69</option>
+              <option value="11">70-74</option>
+              <option value="12">75-79</option>
+              <option value="13">80+</option>
+            </select>
+            <span class="dropdown-arrow">▼</span>
+          </div>
         </div>
 
         <!-- Education Level -->
@@ -173,11 +191,11 @@
           >
           <div class="dropdown-container">
             <select id="education-level-select" name="education-level">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
+              <option value="1">Never Attended School</option>
+              <option value="2">Elementary</option>
+              <option value="3">High School</option>
+              <option value="4">Some College Degree</option>
+              <option value="5">Advanced Degree</option>
               <option value="6">6</option>
             </select>
             <span class="dropdown-arrow">▼</span>
@@ -189,14 +207,14 @@
           <label for="income-level-select">What's your income level?</label>
           <div class="dropdown-container">
             <select id="income-level-select" name="income-level">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
+              <option value="1">less than $10,000</option>
+              <option value="2">less than $15,000</option>
+              <option value="3">less than $20,000</option>
+              <option value="4">less than $25,000</option>
+              <option value="5">less than $35,000</option>
+              <option value="6">less than $50,000</option>
+              <option value="7">less than $65,000</option>
+              <option value="8">less than $75,000</option>
             </select>
             <span class="dropdown-arrow">▼</span>
           </div>
@@ -210,11 +228,11 @@
           >
           <div class="dropdown-container">
             <select id="general-health-select" name="general-health">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
+              <option value="1">excellent</option>
+              <option value="2">very good</option>
+              <option value="3">good</option>
+              <option value="4">fair</option>
+              <option value="5">poor</option>
             </select>
             <span class="dropdown-arrow">▼</span>
           </div>
@@ -293,11 +311,17 @@
             "HighChol",
             document.getElementById("high-cholesterol-select").value,
           ],
-          ["HeartDiseaseorAttack", document.getElementById("chd-select").value],
-          ["Smoker", document.getElementById("smoking-select").value],
           [
-            "DiffWalk",
-            document.getElementById("difficulty-walking-select").value,
+            "CholCheck",
+            document.getElementById("cholesterol-test-select").value,
+          ],
+          ["BMI", document.getElementById("bmi-input").value],
+          ["Smoker", document.getElementById("smoking-select").value],
+          ["Stroke", document.getElementById("stroke-select").value],
+          ["HeartDiseaseorAttack", document.getElementById("chd-select").value],
+          [
+            "PhysActivity",
+            document.getElementById("physical-activities-range").value,
           ],
           ["Fruits", document.getElementById("fruit-consume-select").value],
           [
@@ -308,23 +332,7 @@
             "HvyAlcoholConsump",
             document.getElementById("heavy-drinker-select").value,
           ],
-          [
-            "CholCheck",
-            document.getElementById("cholesterol-test-select").value,
-          ],
-          ["Stroke", document.getElementById("stroke-select").value],
-          ["BMI", document.getElementById("bmi-input").value],
-          ["Age", document.getElementById("age-input").value],
-          [
-            "Education",
-            document.getElementById("education-level-select").value,
-          ],
-          ["Income", document.getElementById("income-level-select").value],
           ["GenHlth", document.getElementById("general-health-select").value],
-          [
-            "PhysActivity",
-            document.getElementById("physical-activities-range").value,
-          ],
           [
             "MentHlth",
             document.getElementById("mental-health-issues-range").value,
@@ -333,6 +341,16 @@
             "PhysHlth",
             document.getElementById("physical-health-illness-range").value,
           ],
+          [
+            "DiffWalk",
+            document.getElementById("difficulty-walking-select").value,
+          ],
+          ["Age", document.getElementById("age-select").value],
+          [
+            "Education",
+            document.getElementById("education-level-select").value,
+          ],
+          ["Income", document.getElementById("income-level-select").value],
         ];
 
         return Object.fromEntries(formDataArray);
@@ -341,7 +359,24 @@
       // Event listener for Submit button click
       document.getElementById("submit-btn").addEventListener("click", () => {
         const formData = collectFormData();
-        console.log(formData); // Log the collected data to the console
+
+        // Convert form data into query parameters
+        const queryParams = new URLSearchParams(formData).toString();
+        console.log(queryParams);
+
+        // Send GET request with query parameters to the backend
+        const url = `http://127.0.0.1:5000/submit-data?${queryParams}`;
+
+        fetch(url, {
+          method: "GET",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success:", data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
       });
 
       // Script to update range value text
