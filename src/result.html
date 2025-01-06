@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Result Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .result-container {
+        position: relative;
+        background: #fff;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        z-index: 999;
+      }
+
+      h1 {
+        font-size: 2rem;
+        color: #333;
+      }
+
+      .numbers {
+        display: flex;
+        justify-content: space-around;
+        margin: 1.5rem 0;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .numbers span {
+        color: #007bff;
+      }
+
+      .confetti-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .back-button {
+        display: inline-block;
+        margin-top: 1.5rem;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .back-button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="result-container">
+      <h1></h1>
+      <div class="numbers">
+        <div>
+          <p>You don't have diabetes</p>
+          <span id="prob-0">0%</span>
+        </div>
+        <div>
+          <p>You have diabetes</p>
+          <span id="prob-1">0%</span>
+        </div>
+      </div>
+      <a href="index.html" class="back-button">Back to Main Page</a>
+    </div>
+    <canvas class="confetti-container"></canvas>
+
+    <script>
+      const queryParams = new URLSearchParams(window.location.search)
+      const data = JSON.parse(queryParams.get('data'))
+
+      const prediction = data?.data?.prediction[0]
+      const h1Element = document.querySelector('h1')
+
+      // Determine the header text and confetti/skull effect
+      if (prediction === 1) {
+        h1Element.textContent = 'You have diabetes'
+        startSkullEffect() // Skull effect for "You have diabetes"
+      } else if (prediction === 0) {
+        h1Element.textContent = "You don't have diabetes"
+        startConfettiEffect() // Confetti for "You don't have diabetes"
+      }
+
+      const probabilities = data?.data?.probabilities[0]
+      if (probabilities) {
+        document.getElementById('prob-0').textContent = `${(probabilities[0] * 100).toFixed(2)}%`
+        document.getElementById('prob-1').textContent = `${(probabilities[1] * 100).toFixed(2)}%`
+      }
+
+      // Function to start confetti effect
+      function startConfettiEffect() {
+        const canvas = document.querySelector('.confetti-container')
+        const ctx = canvas.getContext('2d')
+
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
+
+        const confettiCount = 100
+        const confetti = []
+        const emojis = ['🎉', '🎊', '✨', '🎈', '🥳', '💥']
+
+        for (let i = 0; i < confettiCount; i++) {
+          confetti.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 30 + 10,
+            emoji: emojis[Math.floor(Math.random() * emojis.length)],
+            velocity: {
+              x: Math.random() * 2 - 1,
+              y: Math.random() * 2 + 1
+            }
+          })
+        }
+
+        function renderConfetti() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height)
+          confetti.forEach((piece) => {
+            ctx.font = `${piece.size}px serif`
+            ctx.textAlign = 'center'
+            ctx.fillText(piece.emoji, piece.x, piece.y)
+
+            piece.x += piece.velocity.x
+            piece.y += piece.velocity.y
+
+            if (piece.y > canvas.height) piece.y = 0
+            if (piece.x > canvas.width) piece.x = 0
+            if (piece.x < 0) piece.x = canvas.width
+          })
+          requestAnimationFrame(renderConfetti)
+        }
+
+        renderConfetti()
+      }
+
+      function startSkullEffect() {
+        const canvas = document.querySelector('.confetti-container')
+        const ctx = canvas.getContext('2d')
+
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
+
+        const skullCount = 100
+        const skulls = []
+        const skullEmoji = '☠'
+
+        for (let i = 0; i < skullCount; i++) {
+          skulls.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 30 + 10,
+            emoji: skullEmoji,
+            velocity: {
+              x: Math.random() * 2 - 1,
+              y: Math.random() * 2 + 1
+            }
+          })
+        }
+
+        function renderSkulls() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height)
+          skulls.forEach((piece) => {
+            ctx.font = `${piece.size}px serif`
+            ctx.textAlign = 'center'
+            ctx.fillText(piece.emoji, piece.x, piece.y)
+
+            piece.x += piece.velocity.x
+            piece.y += piece.velocity.y
+
+            if (piece.y > canvas.height) piece.y = 0
+            if (piece.x > canvas.width) piece.x = 0
+            if (piece.x < 0) piece.x = canvas.width
+          })
+          requestAnimationFrame(renderSkulls)
+        }
+
+        renderSkulls()
+      }
+    </script>
+  </body>
+</html>
